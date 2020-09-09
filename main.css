@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+body {
+  background-color: azure;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.board {
+  display: grid;
+  padding: 2px;
+  background-color: darkgreen;
+  grid-template-rows: repeat(10, 27px);
+  grid-template-columns: repeat(9, 27px);
+  width: fit-content;
+}
+
+button.no-browser-styling {
+  border: none;
+  box-shadow: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+button.no-browser-styling:hover, button.no-browser-styling:active, button.no-browser-styling:focus {
+  outline: none;
+}
+
+.board .covered, .board .uncovered {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  font-size: 120%;
+}
+.board .covered:nth-child(odd) {
+  background-color: #8ECC39;
+}
+.board .covered:nth-child(even) {
+  background-color: #A7D948;
+}
+.board .uncovered:nth-child(odd) {
+  background-color: #D7B899;
+}
+.board .uncovered:nth-child(even) {
+  background-color: #E5C29F;
+}
+
+.board span._1 {
+  color: blue;
+}
+.board span._2 {
+  color: green;
+}
+.board span._3 {
+  color: red;
+}
+.board span._4 {
+  color: purple;
+}
+.board span._5 {
+  color: darkorange;
+}
+.board span._6 {
+  color: darkblue;
+}
+.board span._7 {
+  color: #E35672;
+}
+
+.centered-absolute {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
