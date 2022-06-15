@@ -9,8 +9,8 @@ body {
   display: grid;
   padding: 2px;
   background-color: darkgreen;
-  grid-template-rows: repeat(10, 27px);
-  grid-template-columns: repeat(9, 27px);
+  /* grid-template-rows: repeat(8, 27px);
+  grid-template-columns: repeat(10, 27px); */
   width: fit-content;
 }
 

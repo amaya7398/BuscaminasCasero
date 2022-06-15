@@ -43,26 +43,25 @@ function createBoardWithNumbers (rows, columns, coordinates){
 }
 
 
-
-
-function Game({rows, columns, bombs}){
+function Game( {rows, columns, bombs} ){
     const { minesBoard, coordinates} = createMinesBoard(rows, columns, bombs)
-
     const board = createBoardWithNumbers(rows, columns, coordinates)
     const uncoveredCells = createMatrix(rows, columns, false)
 
-    console.log(board);
     return {
-        uncoverCell: function({row, colum}){
+        uncoverCell: ( {row, column} ) => {
             if (minesBoard[row][column]){
                 alert("GAME OVER");
             }
-
             uncoveredCells[row][columns] = true
             return minesBoard[row][column]
         },
-        placeFlag: function({row, colum}){
-            //console.log(`Row: ${row}, colum: ${column}`)
+        placeFlag: ({row, column}) => {
+            console.log(`Row: ${row}, colum: ${column}`)
+            console.log("Se pone la bandera 'segura'");
+        },
+        boardWithNumbers: () => {
+            return board;
         }
     }
 }
