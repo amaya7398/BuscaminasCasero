@@ -12,7 +12,7 @@ function createMatrix(rows, columns, cellContent){
 
 const createMinesBoard = (rows, columns, bombs) => {
     const minesBoard = createMatrix(rows, columns, false);
-    const coordinates = Array(bombs); //just a matrix with N spaces; N <=>Bombs
+    const coordinates = Array(bombs); //just a matrix with N spaces; N is the # of Bombs
 
     for (let i = 0; i < bombs; i++){
         const row = Math.floor(Math.random() * rows)
@@ -30,6 +30,7 @@ function createBoardWithNumbers (rows, columns, coordinates){
     coordinates.forEach(([row, column]) => {
         board[row][column] = -1;
         //Passing around all boxes (1 near space) with a bomb and add 1 to boxes without bomb
+        //adding 1 to all the boxes around a bomb
         for(let i = Math.max(0, row - 1); i <= Math.min(board.length-1, row + 1); i++){
             for(let j = Math.max(0, column - 1); j <= Math.min(board[i].length-1, column + 1); j++) {
                 if (board[i][j] !== -1){
@@ -44,8 +45,12 @@ function createBoardWithNumbers (rows, columns, coordinates){
 
 
 function Game( {rows, columns, bombs} ){
+    //minesBoard == a matrix with TRUE where should be a bomb
+    //coordinates == array with the coords of the bombs
     const { minesBoard, coordinates} = createMinesBoard(rows, columns, bombs)
+    //board == a matrix filled with respective numbers, numbers indicates how many bombs around 1 near space it have
     const board = createBoardWithNumbers(rows, columns, coordinates)
+    // uncoveredCells == just a matrix filled with false. FALSE means the box hasn't been chosen
     const uncoveredCells = createMatrix(rows, columns, false)
 
     return {
@@ -53,15 +58,18 @@ function Game( {rows, columns, bombs} ){
             if (minesBoard[row][column]){
                 alert("GAME OVER");
             }
-            uncoveredCells[row][columns] = true
+            uncoveredCells[row][column] = true
             return minesBoard[row][column]
         },
         placeFlag: ({row, column}) => {
             console.log(`Row: ${row}, colum: ${column}`)
             console.log("Se pone la bandera 'segura'");
         },
-        boardWithNumbers: () => {
+        getBoardWithNumbers: () => {
             return board;
+        },
+        getStatusCells: () => {
+            return uncoveredCells;
         }
     }
 }

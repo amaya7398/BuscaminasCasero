@@ -1,29 +1,24 @@
 var lado = 30;
 
-function View( {board, boardHTML} ){
-    // const boardGame = board;
-    // console.log(board);
-    // console.log(boardGame);
-    createBoardHTML(board, boardHTML)
-
+function View( {board, boardHTML, boardStatus} ){
+    createBoardHTML(board, boardHTML, boardStatus)
 }
 
-function createBoardHTML(board, boardHTML){
+function createBoardHTML(board, boardHTML, boardStatus){
     let html = "";
-    for (let f = 0; f < board.length-1; f++){
-        for (let c = 0; c < board[f].length-1; c++) {
-            html += `<div class="covered"> `
-            html += ( board[f][c] > 0 )
-                ? `<span class="_${board[f][c]}" `
-                : `<span `
-            html += `style="width:${lado}px;height:${lado}" >`
-            html += `${board[f][c]}</span>`
+    const estilo = "style='width:${lado}px;height:${lado}px'"
+    for (const [i,fila] of board.entries() ){ //i && j are the index of the box, for add on the DOM
+        for (let [j, col] of board[i].entries() ) {
+            html += (boardStatus[i][j])
+                ? `<div class="uncovered cc${i}-${j}" ${estilo}> <span class="_${col}"> ${col} </span>`
+                : `<div class="covered">`;
             html += `</div>`
         }
     }
     boardHTML.innerHTML = html;
-    boardHTML.style.width = board[0].length*lado +"px";
-    boardHTML.style.height = board.length*lado +"px";
+    boardHTML.style.cssText = `grid-template-rows: repeat(${board.length}, 30px); grid-template-columns: repeat(${board[0].length}, 30px);`
+    boardHTML.style.width = (board[0].length*lado + 2) +"px";
+    boardHTML.style.height = (board.length*lado+2) +"px";
 }
 
 export default View
