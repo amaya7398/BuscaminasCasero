@@ -1,3 +1,5 @@
+import View from './View.js'
+
 function createMatrix(rows, columns, cellContent){
     const matrix = [];
     for (let i = 0; i < rows; i++) {
@@ -52,14 +54,19 @@ function Game( {rows, columns, bombs} ){
     const board = createBoardWithNumbers(rows, columns, coordinates)
     // uncoveredCells == just a matrix filled with false. FALSE means the box hasn't been chosen
     const uncoveredCells = createMatrix(rows, columns, false)
+    // function that render the table, it is trigger when user do something
+    const render = () => { View({   board: board ,
+                                    boardHTML: document.getElementById('board'),
+                                    boardStatus: uncoveredCells}) }
 
     return {
         uncoverCell: ( {row, column} ) => {
             if (minesBoard[row][column]){
                 alert("GAME OVER");
             }
-            uncoveredCells[row][column] = true
-            return minesBoard[row][column]
+            uncoveredCells[row][column] = true;
+            render();
+            return minesBoard[row][column];
         },
         placeFlag: ({row, column}) => {
             console.log(`Row: ${row}, colum: ${column}`)
@@ -70,6 +77,9 @@ function Game( {rows, columns, bombs} ){
         },
         getStatusCells: () => {
             return uncoveredCells;
+        },
+        init: () => {
+            render();
         }
     }
 }

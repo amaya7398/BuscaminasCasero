@@ -6,12 +6,11 @@ function View( {board, boardHTML, boardStatus} ){
 
 function createBoardHTML(board, boardHTML, boardStatus){
     let html = "";
-    const estilo = "style='width:${lado}px;height:${lado}px'"
     for (const [i,fila] of board.entries() ){ //i && j are the index of the box, for add on the DOM
         for (let [j, col] of board[i].entries() ) {
-            html += (boardStatus[i][j])
-                ? `<div class="uncovered cc${i}-${j}" ${estilo}> <span class="_${col}"> ${col} </span>`
-                : `<div class="covered">`;
+            html += (boardStatus[i][j]) //TRUE <=> uncovered, it has been chosen
+                ? `<div class="uncovered cc${i}-${j}" style='width:${lado}px;height:${lado}px'> <span class="_${col}"> ${col} </span>`
+                : `<div class="covered cc${i}-${j}">`;
             html += `</div>`
         }
     }
