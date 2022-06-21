@@ -45,27 +45,47 @@ function createBoardWithNumbers (rows, columns, coordinates){
     return board
 }
 
-
 function Game( {rows, columns, bombs} ){
     //minesBoard == a matrix with TRUE where should be a bomb
     //coordinates == array with the coords of the bombs
     const { minesBoard, coordinates} = createMinesBoard(rows, columns, bombs)
     //board == a matrix filled with respective numbers, numbers indicates how many bombs around 1 near space it have
     const board = createBoardWithNumbers(rows, columns, coordinates)
-    // uncoveredCells == just a matrix filled with false. FALSE means the box hasn't been chosen
-    const uncoveredCells = createMatrix(rows, columns, false)
+    // statusUncoveredCells == just a matrix filled with false. FALSE means the box hasn't been chosen
+    const statusUncoveredCells = createMatrix(rows, columns, false)
     // function that render the table, it is trigger when user do something
     const render = () => { View({   board: board ,
                                     boardHTML: document.getElementById('board'),
-                                    boardStatus: uncoveredCells}) }
+                                    boardStatus: statusUncoveredCells}) }
+
+    function uncoveredCellIsCero(row, column) { return board[row][column] === 0}
+    function isCovered(row, column) { return !statusUncoveredCells[row][column]}
+    //Uncover function, if it's cero, it will uncover all possible boxes
+    const uncoverCell = (row, column) => {
+        if( uncoveredCellIsCero(row,column) && isCovered(row,column)){
+            statusUncoveredCells[row][column] = true;
+            uncoverAllAroundIt(row,column);
+        }
+        statusUncoveredCells[row][column] = true;
+    }
+    //For cero and if u want to uncover all around the box chosen
+    const uncoverAllAroundIt = (row, column ) => {
+        // uncoverCell(row,column);
+        //Delimitate the area where it will going to work
+        for(let i = Math.max(0, row - 1); i <= Math.min(board.length-1, row + 1); i++){
+            for(let j = Math.max(0, column - 1); j <= Math.min(board[i].length-1, column + 1); j++) {
+                uncoverCell(i,j);
+            }
+        }
+    }
 
     return {
         uncoverCell: ( {row, column} ) => {
+            uncoverCell(row,column);
+            render();
             if (minesBoard[row][column]){
                 alert("GAME OVER");
             }
-            uncoveredCells[row][column] = true;
-            render();
             return minesBoard[row][column];
         },
         placeFlag: ({row, column}) => {
@@ -76,7 +96,7 @@ function Game( {rows, columns, bombs} ){
             return board;
         },
         getStatusCells: () => {
-            return uncoveredCells;
+            return statusUncoveredCells;
         },
         init: () => {
             render();

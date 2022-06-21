@@ -48,7 +48,12 @@ button.no-browser-styling:hover, button.no-browser-styling:active, button.no-bro
 .board .uncovered:nth-child(even) {
   background-color: #E5C29F;
 }
-
+.board span._-1 {
+  background: url(assets/bomb.svg);
+}
+.board span._0 {
+  text-indent: -999px;
+}
 .board span._1 {
   color: blue;
 }
