@@ -53,6 +53,8 @@ function Game( {rows, columns, bombs} ){
     const board = createBoardWithNumbers(rows, columns, coordinates)
     // statusUncoveredCells == just a matrix filled with false. FALSE means the box hasn't been chosen
     const statusUncoveredCells = createMatrix(rows, columns, false)
+    // hasFlag == filled with false, means it hasnt flag, if TRUE, it has and it can't reveal
+    const hasFlag = createMatrix(rows, columns, false);
     // function that render the table, it is trigger when user do something
     const render = () => { View({   board: board ,
                                     boardHTML: document.getElementById('board'),
@@ -62,11 +64,16 @@ function Game( {rows, columns, bombs} ){
     function isCovered(row, column) { return !statusUncoveredCells[row][column]}
     //Uncover function, if it's cero, it will uncover all possible boxes
     const uncoverCell = (row, column) => {
-        if( uncoveredCellIsCero(row,column) && isCovered(row,column)){
+        if( hasFlag( row, column ) ){ return false } //if has flag, it is save
+        if( uncoveredCellIsCero( row,column ) && isCovered( row,column )){
             statusUncoveredCells[row][column] = true;
             uncoverAllAroundIt(row,column);
         }
         statusUncoveredCells[row][column] = true;
+        render();
+        if (minesBoard[row][column]){
+            alert("GAME OVER");
+        }
     }
     //For cero and if u want to uncover all around the box chosen
     const uncoverAllAroundIt = (row, column ) => {
@@ -82,15 +89,13 @@ function Game( {rows, columns, bombs} ){
     return {
         uncoverCell: ( {row, column} ) => {
             uncoverCell(row,column);
-            render();
-            if (minesBoard[row][column]){
-                alert("GAME OVER");
-            }
             return minesBoard[row][column];
         },
+        uncoverAllAroundIt: ({row, column}) => {
+            uncoverAllAroundIt(row,column);
+        },
         placeFlag: ({row, column}) => {
-            console.log(`Row: ${row}, colum: ${column}`)
-            console.log("Se pone la bandera 'segura'");
+            switchFlag(row, column)
         },
         getBoardWithNumbers: () => {
             return board;
