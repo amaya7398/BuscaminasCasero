@@ -86,3 +86,16 @@ button.no-browser-styling:hover, button.no-browser-styling:active, button.no-bro
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.centered {
+  width: 100%;
+  text-align: center;
+}
+li {
+  display: inline;
+  padding: 0 10px;
+  border-right: solid 2px black;
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}

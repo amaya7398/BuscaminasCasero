@@ -24,4 +24,8 @@ function createBoardHTML(board, boardHTML, boardStatus, boardFlags) {
     boardHTML.style.height = (board.length * lado + 2) + "px";
 }
 
-export default View
+function SaveScore(a) {
+    console.log("SaveScore:", a);
+}
+
+export { SaveScore, View }

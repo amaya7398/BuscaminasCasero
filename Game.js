@@ -1,4 +1,5 @@
-import View from './View.js'
+// import View from './View.js'
+import { SaveScore, View } from './View.js';
 
 function createMatrix(rows, columns, cellContent) {
     const matrix = [];
@@ -55,6 +56,7 @@ function Game({ rows, columns, bombs }) {
     const statusUncoveredCells = createMatrix(rows, columns, false)
     // hasFlag == filled with false, means it hasnt flag, if TRUE, it has and it can't reveal
     const cellHasFlag = createMatrix(rows, columns, false);
+    let noHasBeenReseted = ["a"];
 
     // function that render the table, it is trigger when user do something
     const render = () => {
@@ -71,22 +73,19 @@ function Game({ rows, columns, bombs }) {
     function hasFlag(row, column) { return cellHasFlag[row][column] }
     //Uncover function, if it's cero, it will uncover all possible boxes
     const uncoverCell = (row, column) => {
+        if (hasBeenReseted()){ return false } //You can not play more, you must play again
         if (hasFlag(row, column)) { return false } //if has flag, it is save
         if (uncoveredCellIsCero(row, column) && isCovered(row, column)) {
             statusUncoveredCells[row][column] = true;
             uncoverAllAroundIt(row, column);
         }
         statusUncoveredCells[row][column] = true;
-        if (minesBoard[row][column]) {
-            alert("GAME OVER");
-        }
-        if ( isComplete()){
-            alert("YOU WIN");
-        }
         render();
+        concludeAction(row, column);
     }
     //For cero and if u want to uncover all around the box chosen
     const uncoverAllAroundIt = (row, column) => {
+        if (hasBeenReseted()){ return false } //You can not play more, you must play again
         //Delimitate the area where it will going to work
         for (let i = Math.max(0, row - 1); i <= Math.min(board.length - 1, row + 1); i++) {
             for (let j = Math.max(0, column - 1); j <= Math.min(board[i].length - 1, column + 1); j++) {
@@ -95,17 +94,53 @@ function Game({ rows, columns, bombs }) {
         }
     }
     const switchFlag = (row, column) => {
+        if (hasBeenReseted()){ return false } //You can not play more, you must play again
         if (isCovered(row, column)) {
             cellHasFlag[row][column] = !(cellHasFlag[row][column]); //the status is switched.
             render();
         }
     }
-    function isComplete(){
-        return minesBoard.every( (column, __i) => {
-            return column.every( (value, __j) => {
-               return value == cellHasFlag[__i][__j]
+
+    function concludeAction(row, column) {
+        if (isComplete()) {
+            resetGame();
+            saveScore();
+            alert("YOU WIN");
+        }
+        // saveScore();
+        if (loss(row,column)) { //&& noHasBeenReseted()
+            resetGame();
+            alert("GAME OVER, NOOB");
+        }
+    }
+
+    function isComplete() {
+        return minesBoard.every((column, __i) => {
+            return column.every((value, __j) => {
+                return value == cellHasFlag[__i][__j]
             })
         })
+    }
+    function loss(row, column){
+        return minesBoard[row][column]
+    }
+
+    function resetGame(){
+        noHasBeenReseted = [];
+    }
+    function hasBeenReseted(){
+        return (!noHasBeenReseted.length) //if true => reset() has been done, and also has been reseted
+    }
+
+    function saveScore() {
+        // let saving = {}//= console.timeEnd("game");
+        // console.log(typeof(console.timeEnd("game")))
+        // console.log(saving)
+        // if (saving) {
+        //     SaveScore();
+        // }
+        console.log("Saving ...");
+        SaveScore("firebase")
     }
 
     return {
@@ -127,6 +162,7 @@ function Game({ rows, columns, bombs }) {
         },
         init: () => {
             render();
+            console.time("game")
         }
     }
 }

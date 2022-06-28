@@ -1,5 +1,4 @@
 import Game from './Game.js'
-import View from './View.js'
 
 const config = { rows: 8, columns: 10, bombs: 10 };
 const game = Game(config);
