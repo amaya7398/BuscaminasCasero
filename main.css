@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
-main {
+main .nav{
   background-color: #E35672;
 }
 body {
@@ -14,6 +14,13 @@ body {
   background-color: darkgreen;
   /* grid-template-rows: repeat(8, 27px);
   grid-template-columns: repeat(10, 27px); */
+  width: fit-content;
+}
+
+.scoreboard {
+  position: absolute;
+  left: 1%;
+  top: 25%;
   width: fit-content;
 }
 
@@ -36,10 +43,10 @@ button.no-browser-styling:hover, button.no-browser-styling:active, button.no-bro
   position: relative;
   font-size: 120%;
 }
-.board .covered:nth-child(odd) {
+.scores, .board .covered:nth-child(odd) {
   background-color: #8ECC39;
 }
-.board .covered:nth-child(even) {
+.scores, .board .covered:nth-child(even) {
   background-color: #A7D948;
 }
 .board .uncovered:nth-child(odd) {

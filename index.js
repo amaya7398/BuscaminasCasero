@@ -1,12 +1,19 @@
 import Game from './Game.js'
+import { showScoreboard } from './View.js';
 
 const config = { rows: 8, columns: 10, bombs: 10 };
+// const config = { rows: 8, columns: 10, bombs: 20 };
+// const config = { rows: 16, columns: 20, bombs: 50 };
 const game = Game(config);
 game.init();
 
 document.getElementById("board").addEventListener("contextmenu", e => {
     e.preventDefault();
 })
+
+document.getElementById("scoreBoard").addEventListener("click", () => {
+    showScoreboard(document.getElementById('board'));
+});
 
 document.getElementById("board").addEventListener("mousedown", e => {
     let event = e.button;
