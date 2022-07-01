@@ -1,7 +1,7 @@
-import { fire_onShowScore} from './firebase.js'
+import { fire_onShowScore } from './firebase.js'
 var lado = 30;
 
-function View({ board, boardHTML, boardStatus, boardFlags }) {
+export function View({ board, boardHTML, boardStatus, boardFlags }) {
     createBoardHTML(board, boardHTML, boardStatus, boardFlags)
 }
 
@@ -25,14 +25,14 @@ function createBoardHTML(board, boardHTML, boardStatus, boardFlags) {
     boardHTML.style.height = (board.length * lado + 2) + "px";
 }
 
-function viewSaveScore(func_saveScore) {
+export function viewSaveScore(func_saveScore) {
     const name = prompt("Enter your name"); //boardHTML.innerHTML = "" //should generate html scoreboard
-    func_saveScore(name,"score") //score => auto generate
+    func_saveScore(name, "TBD") //score => auto generate
 }
 
-async function showScoreboard ( boardHTML) {
+export async function showScoreboard(boardHTML) {
     //callback to firebase onSnapShot();
-    fire_onShowScore ( (querySnapshot) => {
+    fire_onShowScore((querySnapshot) => {
         let html = `
         <table> <tr>
             <th class="scores">Player Name</th>
@@ -50,5 +50,3 @@ async function showScoreboard ( boardHTML) {
         boardHTML.innerHTML = html;
     });
 }
-
-export { viewSaveScore, View, showScoreboard }

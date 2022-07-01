@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
-main .nav{
+main .nav {
   background-color: #E35672;
 }
+
 body {
   background-color: rgb(91, 214, 214);
   font-family: 'Roboto Mono', monospace;
@@ -30,7 +31,10 @@ button.no-browser-styling {
   font-family: inherit;
   font-size: inherit;
 }
-button.no-browser-styling:hover, button.no-browser-styling:active, button.no-browser-styling:focus {
+
+button.no-browser-styling:hover,
+button.no-browser-styling:active,
+button.no-browser-styling:focus {
   outline: none;
 }
 
@@ -43,46 +47,62 @@ button.no-browser-styling:hover, button.no-browser-styling:active, button.no-bro
   position: relative;
   font-size: 120%;
 }
-.scores, .board .covered:nth-child(odd) {
+
+.scores,
+.board .covered:nth-child(odd) {
   background-color: #8ECC39;
 }
-.scores, .board .covered:nth-child(even) {
+
+.scores,
+.board .covered:nth-child(even) {
   background-color: #A7D948;
 }
+
 .board .uncovered:nth-child(odd) {
   background-color: #D7B899;
 }
+
 .board .uncovered:nth-child(even) {
   background-color: #E5C29F;
 }
+
 .board .withFlag {
   background-color: #E35672;
   background: url(assets/flag.svg);
 }
+
 .board span._-1 {
   background: url(assets/bomb.svg);
 }
+
 .board span._0 {
   text-indent: -999px;
 }
+
 .board span._1 {
   color: blue;
 }
+
 .board span._2 {
   color: green;
 }
+
 .board span._3 {
   color: red;
 }
+
 .board span._4 {
   color: purple;
 }
+
 .board span._5 {
   color: darkorange;
 }
+
 .board span._6 {
   color: darkblue;
 }
+
 .board span._7 {
   color: #E35672;
 }
@@ -93,16 +113,19 @@ button.no-browser-styling:hover, button.no-browser-styling:active, button.no-bro
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
 .centered {
   width: 100%;
   text-align: center;
 }
+
 li {
   display: inline;
   padding: 0 10px;
   border-right: solid 2px black;
   list-style: none;
 }
+
 a {
   text-decoration: none;
 }

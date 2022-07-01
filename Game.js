@@ -1,5 +1,5 @@
 // import View from './View.js'
-import { viewSaveScore, View, showScoreboard} from './View.js';
+import { viewSaveScore, View, showScoreboard } from './View.js';
 import { fire_saveScore } from './firebase.js'
 
 function createMatrix(rows, columns, cellContent) {
@@ -135,7 +135,7 @@ function Game({ rows, columns, bombs }) {
 
     function saveScore() {
         let boardHTML = document.getElementById('board')
-        viewSaveScore( fire_saveScore ); //should create form HTML to put name && use the firebase FUNCTION
+        viewSaveScore(fire_saveScore); //should create form HTML to put name && use the firebase FUNCTION
         showScoreboard(boardHTML);
     }
 

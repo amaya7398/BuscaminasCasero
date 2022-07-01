@@ -37,9 +37,11 @@ document.getElementById("board").addEventListener("mousedown", e => {
 function isBoardChild(e) {
     return e.parentElement.className.split(" ")[0] === "board"
 }
+
 function isBoardChildChild(e) {
     return e.parentElement.parentElement.className.split(" ")[0] === "board"
 }
+
 function getCoords(e) {
     let coords
     if (isBoardChild(e)) {
